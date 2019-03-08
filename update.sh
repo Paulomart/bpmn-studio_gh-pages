@@ -17,6 +17,8 @@ cd ..
 mv bpmn-studio/* .
 rm -fr bpmn-studio
 
+find . ! -path */.git* -type f -size +100M -exec rm {} \;
+
 git status
 git add -A
 git commit -m ":package: Run Build"
