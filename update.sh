@@ -2,7 +2,7 @@ set -e
 
 git checkout gh-pages
 
-git reset --hard 6e1ac96
+git reset --hard 09078acb
 git clean -xdf
 
 git clone git@github.com:process-engine/bpmn-studio.git
@@ -20,3 +20,5 @@ rm -fr bpmn-studio
 git status
 git add -A
 git commit -m ":package: Run Build"
+
+git push --force
