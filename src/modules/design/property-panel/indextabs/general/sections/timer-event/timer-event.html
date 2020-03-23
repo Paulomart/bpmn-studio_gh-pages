@@ -1,0 +1,37 @@
+<template>
+  <require from="./timer-event.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel" id="js-general-timerEvent-section">
+    <div class="panel__heading">
+      Timer Event
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <td>
+            <select class="props-input props-select" value.bind="timerType" change.delegate="updateTimerType()" disabled.bind="!isEditable">
+              <option model.bind="undefined">-Choose Option-</option>
+              <option model.bind="TimerType.Date">Date</option>
+              <option model.bind="TimerType.Duration">Duration</option>
+              <option if.bind="isTimerStartEvent === true" model.bind="TimerType.Cycle">Cycle</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <table show.bind="timerType !== undefined" class="props-table">
+        <tr>
+          <th>Timer Definition</th>
+          <td>
+            <input type="text" class="props-input" value.bind="timerElement.body" change.delegate="updateTimerDefinition()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+        <tr if.bind="timerType === TimerType.Cycle">
+          <th>Enabled</th>
+          <td>
+            <input type="checkbox" class="props-input" checked.bind="isEnabled" disabled.bind="!isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>

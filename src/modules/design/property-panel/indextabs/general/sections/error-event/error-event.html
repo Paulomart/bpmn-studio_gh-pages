@@ -1,0 +1,53 @@
+<template>
+  <require from="./error-event.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel" id="js-general-errorEvent-section">
+    <div class="panel__heading">
+      Error Event
+      <button class="button remove-context-button" class.bind="selectedId ? '' : 'button--disabled'" disabled.bind="!selectedId || !isEditable" click.delegate="removeSelectedError()">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button class="button add-context-button" click.delegate="addError()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Error</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedId" change.delegate="updateError()" disabled.bind="!isEditable">
+              <option model.bind="null">-Choose Error-</option>
+              <option repeat.for="error of errors"
+                      model.bind="error.id" value="${error.id}">${error.name} (id: ${error.id})</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <table show.bind="selectedId" class="props-table">
+        <tr>
+          <th>Name</th>
+          <td>
+            <input type="text" class="props-input" value.bind="selectedError.name" change.delegate="updateErrorName()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+        <tr>
+          <th>Code</th>
+          <td>
+            <input type="text" class="props-input" value.bind="selectedError.errorCode" change.delegate="updateErrorCode()" disabled.bind="!isEditable">
+            <small if.bind="isEndEvent">The code the error should have.</small>
+            <small else>Optional. If set, only errors with a matching code are caught.</small>
+          </td>
+        </tr>
+        <tr>
+          <th>Message</th>
+          <td>
+            <input type="text" class="props-input" value.bind="errorMessageVariable" change.delegate="updateErrorMessage()" disabled.bind="!isEditable">
+            <small if.bind="isEndEvent">Optional: The message the error should have.</small>
+            <small else>Optional. If set, only errors with a matching message are caught.</small>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>

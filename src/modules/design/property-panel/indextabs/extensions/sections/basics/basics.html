@@ -1,0 +1,28 @@
+<template>
+  <require from="./basics.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel" id="js-extensions-basics-section">
+    <div class="panel__heading">
+      Properties
+      <button class="button add-context-button" click.delegate="addProperty()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table class="property-table">
+        <tr repeat.for="property of properties" index.bind="$index">
+          <td class="property-table-column-left">
+            <input data-fieldIndex="${$index}" type="text" class="props-input key-value-input" placeholder="Name" focus.one-time="shouldFocus" blur.trigger="inputFieldBlurred($index, $event)" value.bind="newNames[$index]" change.delegate="changeName($index)" disabled.bind="!isEditable">
+          </td>
+          <td class="property-table-column-right">
+            <input data-fieldIndex="${$index}" type="text" class="props-input key-value-input" placeholder="Value"  blur.trigger="inputFieldBlurred($index, $event)" value.bind="newValues[$index]" change.delegate="changeValue($index)" disabled.bind="!isEditable">
+          </td>
+          <td>
+            <button class="button key-value-delete-button" click.delegate="removeProperty($index)" disabled.bind="!isEditable">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+</template>

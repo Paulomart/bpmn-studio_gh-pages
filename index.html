@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>BPMN Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="index-styles.css">
+  </head>
+
+
+  <body aurelia-app="main" class="aurelia-app--body">
+    <div class="loading-spinner__div">
+      <img src="src/resources/images/gears.svg" class="loading-spinner loading-spinner--index">
+    </div>
+
+    <div class="aurelia-main-app">
+      <script>
+        // if we're in the browser, we need to add <base href="/" /> to enable push state
+        if (!window.require) {
+          var base = document.createElement('base');
+          base.href = '/';
+          document.getElementsByTagName('head')[0].appendChild(base);
+        }
+
+        // see https://electron.atom.io/docs/faq/#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+        if (window.require) {
+          window.nodeRequire = require;
+          delete window.require;
+        }
+
+        // in an electron-environment, we musn't try to load umd-modules via window.module
+        if (window.module) {
+          delete window.module;
+        }
+      </script>
+      <script src="./dist/web/dynamic_ui_core/dist/webcomponent/dynamic-task-components.js"></script>
+      <script src="./dist/web/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
+    </div>
+  </body>
+</html>

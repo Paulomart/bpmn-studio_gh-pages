@@ -1,0 +1,25 @@
+<template>
+  <require from="./service-task.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <require from="./components/http-service-task/http-service-task"></require>
+  <require from="./components/external-task/external-task"></require>
+  <div class="section-panel" id="js-general-serviceTask-section">
+    <div class="panel__heading">Service Task</div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Kind</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedKind" change.delegate="kindChanged()" disabled.bind="!isEditable">
+              <option value.one-time=ServiceKind.None>-Choose Kind-</option>
+              <option value.one-time=ServiceKind.HttpClient>HTTP REST Service</option>
+              <option value.one-time=ServiceKind.External>External Task</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <http-service-task if.bind="selectedKind === 'HttpClient'" model.bind="model"></http-service-task>
+  <external-task if.bind="selectedKind === 'external'" model.bind="model"></external-task>
+</template>

@@ -1,0 +1,13 @@
+<template>
+  <require from="./dashboard.css"></require>
+  <require from="../task-list/task-list"></require>
+  <require from="../process-list/process-list"></require>
+  <require from="../cronjob-list/cronjob-list"></require>
+
+  <div class="dashboard-container" id="dashboardContainer">
+    <process-list active-solution-entry.bind="activeSolutionEntry"></process-list>
+    <task-list active-solution-entry.bind="activeSolutionEntry"></task-list>
+    <cronjob-list active-solution-entry.to-view="activeSolutionEntry" if.bind="showCronjobList"></cronjob-list>
+  </div>
+
+</template>

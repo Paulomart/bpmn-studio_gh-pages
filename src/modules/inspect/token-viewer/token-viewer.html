@@ -1,0 +1,46 @@
+<template>
+  <require from="./token-viewer.css"></require>
+  <div class="token-viewer">
+    <div show.bind="shouldShowFlowNodeId" class="token-viewer__headline">
+      <span>Token</span>
+      <span class="headline__node-id">${flowNode.id}</span>
+    </div>
+    <div class="switch-container" if.bind="showTokenEntries">
+      <label class="token-viewer-switch">
+        <input type="checkbox" checked.bind="showBeautifiedToken">
+        <span class="token-viewer-switch--slider"></span>
+      </label>
+      Beautified
+    </div>
+    <span if.bind="!showTokenEntries && flowNode !== undefined" class="token-viewer__empty-message">There is no token for this element.</span>
+    <span if.bind="flowNode === undefined && !showTokenEntries" class="token-viewer__empty-message">Select an element to view token.</span>
+    <div repeat.for="entry of tokenEntries" if.bind="showBeautifiedToken">
+      <div class="token-entry-container">
+        <div class="token-entry__event-type">
+          Event Type: <span class="token-entry">${entry.eventType}</span>
+        </div>
+        <div repeat.for="load of entry.payload" class="token-entry__payload">
+          <div if.bind="load.name !== undefined">
+            <div class="payload__title">
+              ${load.name}
+            </div>
+            <template repeat.for="value of load.values">
+              <pre if.bind="value.title !== undefined" class="payload__name">- ${value.title}: ${value.value}</pre>
+              <pre else class="payload__name">- ${value.value}</pre>
+            </template>
+          </div>
+          <div else class="payload__name">- ${load.values[0].value}</div>
+        </div>
+        </span>
+      </div>
+    </div>
+    <div repeat.for="entry of rawTokenEntries" if.bind="!showBeautifiedToken">
+      <div class="token-entry-container">
+        <div class="token-entry__event-type">
+          Event Type: <span class="token-entry">${entry.eventType}</span>
+        </div>
+        <pre class="token-entry__payload">${entry.payload}</pre>
+      </div>
+    </div>
+  </div>
+</template>

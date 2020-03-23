@@ -1,0 +1,140 @@
+<template>
+  <require from="./solution-explorer-solution.css"></require>
+  <require from="./delete-diagram-modal/delete-diagram-modal"></require>
+
+  <div class="solution-explorer-solution">
+
+    <div class="solution-loading" if.bind="solutionIsNotLoaded && !processEngineStartupError && !authorisationError && !authenticationError">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+
+    <div class="solution-loading" if.bind="solutionIsNotLoaded && processEngineStartupError">
+      <span>ProcessEngine Startup Error</span><br>
+      <small class="startup-error" click.delegate="showErrorLogs = true">Click here for more information</small>
+    </div>
+
+    <div class="authority-issue" if.bind="solutionIsNotLoaded && authorisationError">
+      <span class="authorisation-error">You don't have sufficient permissions for accessing this ProcessEngine. Please <a href="#" class="authorisation-error__login-link" click.delegate="login(displayedSolutionEntry)">try to login</a> as another user.</span>
+    </div>
+
+    <div class="authority-issue" if.bind="solutionIsNotLoaded && authenticationError">
+      <span class="authorisation-error">Please <a href="#" class="authorisation-error__login-link" click.delegate="login(displayedSolutionEntry)">try to login.</a></span>
+    </div>
+
+    <div class="diagram-contextmenu" ref="diagramContextMenu" show.bind="showContextMenu">
+      <div show.bind="canRenameDiagram" class="diagram-contextmenu__entry" click.delegate="duplicateDiagram()">
+        Duplicate
+      </div>
+      <div show.bind="!isUriFromRemoteSolution(displayedSolutionEntry.uri)" class="diagram-contextmenu__entry" click.delegate="deployDiagram()">
+        Deploy
+      </div>
+    </div>
+
+    <ul if.bind="!solutionIsNotLoaded" class="solution__diagram-list">
+
+      <li if.bind="diagramCreationState.isCreateDiagramInputShown" class="diagram-create">
+        <div class="input-holder">
+          <input ref="createNewDiagramInput" class.bind="hasValidationErrors ? 'input-holder__input input-holder__input--error' : 'input-holder__input'" type="text" value.bind="diagramCreationState.currentDiagramInputValue & validateOnChange">
+        </div>
+        <ul if.bind="hasValidationErrors" class="diagram-create__errors">
+          <li repeat.for="error of diagramValidationErrors" class="diagram-create__error">${error.message}</li>
+        </ul>
+      </li>
+
+      <li
+        repeat.for="diagram of openedDiagrams"
+        class.bind="activeDiagramUri === diagram.uri ? 'diagram-entry diagram-entry--highlight' : 'diagram-entry'"
+        click.delegate="openDiagram(diagram)"
+        data-test-open-diagram-with-uri="${diagram.uri}">
+
+        <div if.bind="currentlyRenamingDiagramUri === diagram.uri" class="diagram-rename-container">
+          <div class="input-holder">
+            <input ref="renameDiagramInput" class.bind="hasValidationErrors ? 'input-holder__input input-holder__input--error' : 'input-holder__input'" type="text" value.bind="diagramRenamingState.currentDiagramInputValue & validateOnChange">
+          </div>
+          <ul if.bind="hasValidationErrors" class="rename-errors-container__error-list">
+            <li repeat.for="error of diagramValidationErrors" class="rename-errors-container__error-list-entry">${error.message}</li>
+          </ul>
+        </div>
+
+        <template if.bind="currentlyRenamingDiagramUri !== diagram.uri">
+
+          <i if.bind="shouldFileIconBeShown()" class="diagram-entry__icon fa fa-cogs"></i>
+          <i if.bind="displayedSolutionEntry.isOpenDiagram && diagramChangedStateMap.get(diagram.uri)" class="diagram-entry__unsaved-icon fas fa-circle"></i>
+          <div class="diagram-entry__name-container" contextmenu.delegate="activateContextMenu($event, diagram)">
+            <span class="diagram-entry__name" title="${diagram.name}" title.bind="displayedSolutionEntry.isOpenDiagram ? diagram.uri : ''">${diagram.name}</span>
+            <span class="diagram-entry__location" if.bind="displayedSolutionEntry.isOpenDiagram" title="${getDiagramLocation(diagram.uri)}">${getDiagramFolder(diagram.uri)}</span>
+          </div>
+
+          <div class="diagram-entry__actions">
+            <button
+              class.bind="activeDiagramUri !== diagram.uri ? 'button' : 'button button--disabled'"
+              if.bind="canRenameDiagram"
+              click.delegate="startRenamingOfDiagram(diagram, $event)"
+              title.bind="activeDiagramUri !== diagram.uri ? 'Rename the diagram' : 'The diagram is currently open, it cant be renamed.'">
+
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+
+            <button
+              class="button"
+              if.bind="displayedSolutionEntry.isOpenDiagram"
+              click.delegate="closeDiagram(diagram, $event)"
+              title="Close the diagram">
+
+              <i class="fa fa-times"></i>
+            </button>
+
+            <button
+              class="button"
+              if.bind="canDeleteDiagram()"
+              click.delegate="showDeleteDiagramModal(diagram, $event)"
+              title="Delete the diagram">
+
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </template>
+
+      </li>
+    </ul>
+  </div>
+
+  <!--Delete Diagram Modal-->
+  <delete-diagram-modal active-diagram="activeDiagram" view-model.ref="deleteDiagramModal"></delete-diagram-modal>
+
+  <modal show.bind="showCloseModal"
+         header-text="Document Contains Changes"
+         body-text="Your diagram has unsaved changes. Save changes to diagram before closing?">
+    <template replace-part="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelButtonCloseView">Cancel</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="dontSaveButtonCloseView">Don't save</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveButtonCloseView">Save</button>
+    </template>
+  </modal>
+  
+  <modal if.bind="isSavingDiagrams"
+         body-style="min-height: 230px"
+         header-text="Saving Diagrams">
+    <template replace-part="modal-body">
+      <div class="saving-diagram-modal__loading-spinner">
+        <img class="saving-diagram-modal__loading-spinner-icon" src="src/resources/images/gears.svg">
+        <h3 class="saving-diagram-modal__loading-spinner-text">Saving "${currentlySavingDiagramName}"...</h3>
+        </div>
+    </template>
+  </modal>
+
+  <modal if.bind="showErrorLogs"
+          body-style="min-height: 320px"
+          modal-style="max-width: 900px; top: 10%;"
+          content-style="height: 600px;"
+          header-text="ProcessEngine Error Log"
+          origin.bind="solutionExplorerSolution">
+    <template replace-part="modal-body">
+      <textarea ref="origin.errorLogArea" class="form-control error-log" value.bind="processEngineErrorLog" readonly></textarea>
+    </template>
+    <template replace-part="modal-footer">
+      <button type="button" class="btn btn-default" click.delegate="copyToClipboard()">Copy</button>
+      <button type="button" class="btn btn-default" click.delegate="showErrorLogs = false">Close</button>
+    </template>
+  </modal>
+</template>

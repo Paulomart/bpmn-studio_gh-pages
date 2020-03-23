@@ -1,0 +1,47 @@
+.task-list__last-table-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.pagination {
+  padding-right: 0px;
+  justify-content: center;
+}
+
+.loading-spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+.task-list-container {
+  flex: 1;
+}
+
+.task-list-item-modelname {
+  color: inherit;
+  cursor: default;
+}
+
+.task-list-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.task-list-total-count {
+  float: right;
+}
+
+.task-list__no-tasks-text--error {
+  color: darkred;
+}
+
+.task-list__close-modal-button {
+  position: absolute;
+  right: 20px;
+}
+
+.task-list__close-dynamic-ui-modal-button {
+  top: 5px;
+}

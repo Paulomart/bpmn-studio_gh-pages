@@ -1,0 +1,29 @@
+<template bindable="modalStyle,contentStyle,headerStyle,bodyStyle,footerStyle,headerText,bodyText,footerText,origin">
+  <require from="./modal.css"></require>
+
+  <div class="modal show show-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-style" style.bind="modalStyle" role="document">
+      <div class="modal-content" style.bind="contentStyle">
+        <div class="modal-header" style.bind="headerStyle">
+          <template replaceable part="modal-header">
+            <h3>
+              ${headerText}
+            </h3>
+          </template>
+        </div>
+        <div class="modal-body" style.bind="bodyStyle">
+          <template replaceable part="modal-body">
+            ${bodyText}
+          </template>
+        </div>
+        <div class="modal-footer" style.bind="footerStyle">
+          <template replaceable part="modal-footer">
+            ${footerText}
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+
+</template>

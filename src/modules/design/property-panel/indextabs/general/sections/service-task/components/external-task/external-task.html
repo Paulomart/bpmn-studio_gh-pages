@@ -1,0 +1,34 @@
+<template>
+  <require from="./external-task.css"></require>
+  <require from="../../../../../../styles/sections.css"></require>
+  <div class="section-panel">
+    <div class="panel__heading">External Task
+      <i class="fas fa-info-circle feedback-modal__help-icon" title="Help: How to use the token in ExternalTasks" click.delegate="showTokenHelpModal()"></i>
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Topic</th>
+          <td>
+            <input type="text" class="props-input name-input" value.bind="selectedTopic" change.delegate="topicChanged()" disabled.bind="!model.isEditable">
+          </td>
+        </tr>
+        <tr>
+          <th>Payload<a class="payload-enlarge-link" click.delegate="showModal = true"><small class="payload-enlarge-text">Enlarge</small></a></th>
+          <td>
+            <textarea class="props-input-textarea name-input" ref="payloadInput" value.bind="selectedPayload" change.delegate="payloadChanged()" disabled.bind="!model.isEditable"></textarea>
+          </td>
+        </tr>
+    </div>
+  </div>
+
+  <modal show.bind="showModal"
+         header-text="Editing: Payload">
+    <template replace-part="modal-body" autofocus>
+      <textarea class="form-control payload" value.bind="selectedPayload" change.delegate="payloadChanged()" rows="10" aria-multiline="true" autofocus wrap="soft" disabled.bind="!model.isEditable"></textarea>
+    </template>
+    <template replace-part="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" click.delegate="showModal = false">Okay</button>
+    </template>
+  </modal>
+</template>

@@ -1,0 +1,12 @@
+<template>
+  <require from="./property-panel.css"></require>
+  <div class="property-panel">
+    <template repeat.for="indextab of indextabs">
+      <compose view-model=".${indextab.path}"
+        view=".${indextab.path}.html"
+        model.bind="{modeler: modeler, elementInPanel: elementInPanel, isEditable: isEditable}"
+        if.bind="indextab.canHandleElement"
+        containerless></compose>
+    </template>
+  </div>
+</template>

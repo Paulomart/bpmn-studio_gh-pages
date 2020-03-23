@@ -1,0 +1,362 @@
+{
+  "name": "bpmn-studio",
+  "type": "project:application",
+  "platform": {
+    "id": "web",
+    "displayName": "Web",
+    "output": "dist/web",
+    "index": "index.html",
+    "baseDir": "."
+  },
+  "transpiler": {
+    "id": "typescript",
+    "displayName": "TypeScript",
+    "fileExtension": ".ts",
+    "dtsSource": [
+      "./custom_typings/**/*.d.ts"
+    ],
+    "source": "src/**/*.ts"
+  },
+  "markupProcessor": {
+    "id": "none",
+    "displayName": "None",
+    "fileExtension": ".html",
+    "source": "src/**/*.html"
+  },
+  "cssProcessor": {
+    "id": "sass",
+    "displayName": "Sass",
+    "fileExtension": ".scss",
+    "source": "src/**/*.scss"
+  },
+  "editor": {
+    "id": "vscode",
+    "displayName": "Visual Studio Code"
+  },
+  "unitTestRunner": {
+    "id": "karma",
+    "displayName": "Karma",
+    "source": "test/unit/**/*.ts"
+  },
+  "paths": {
+    "root": "src",
+    "resources": "resources",
+    "elements": "resources/elements",
+    "attributes": "resources/attributes",
+    "valueConverters": "resources/value-converters",
+    "bindingBehaviors": "resources/binding-behaviors"
+  },
+  "testFramework": {
+    "id": "jasmine",
+    "displayName": "Jasmine"
+  },
+  "build": {
+    "targets": [
+      {
+        "id": "web",
+        "displayName": "Web",
+        "output": "dist/web",
+        "index": "index.html",
+        "baseDir": "."
+      }
+    ],
+    "loader": {
+      "type": "require",
+      "configTarget": "vendor-bundle.js",
+      "includeBundleMetadataInConfig": "auto",
+      "plugins": [
+        {
+          "name": "text",
+          "extensions": [
+            ".html",
+            ".css"
+          ],
+          "stub": true
+        }
+      ]
+    },
+    "options": {
+      "minify": "stage & prod",
+      "sourcemaps": "dev & stage"
+    },
+    "bundles": [
+      {
+        "name": "app-bundle.js",
+        "source": [
+          "[**/*.js]",
+          "**/*.{css,html}"
+        ]
+      },
+      {
+        "name": "vendor-bundle.js",
+        "prepend": [
+          "node_modules/bluebird/js/browser/bluebird.core.js",
+          "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
+          "node_modules/requirejs/require.js"
+        ],
+        "dependencies": [
+          "aurelia-binding",
+          "aurelia-bootstrapper",
+          "aurelia-dependency-injection",
+          "aurelia-event-aggregator",
+          "aurelia-framework",
+          "aurelia-history",
+          "aurelia-history-browser",
+          "aurelia-loader",
+          "aurelia-loader-default",
+          "aurelia-logging",
+          "aurelia-logging-console",
+          "aurelia-metadata",
+          "aurelia-pal",
+          "aurelia-pal-browser",
+          "aurelia-path",
+          "aurelia-polyfills",
+          "aurelia-route-recognizer",
+          "aurelia-router",
+          "aurelia-task-queue",
+          "aurelia-templating",
+          "aurelia-templating-binding",
+          "text",
+          {
+            "name": "aurelia-open-id-connect",
+            "main": "index.js",
+            "path": "../node_modules/aurelia-open-id-connect/dist/amd",
+            "resources": [
+              "open-id-connect-user-block.html",
+              "open-id-connect-user-debug.html",
+              "open-id-connect.js"
+            ]
+          },
+          "oidc-client",
+          {
+            "name": "aurelia-templating-resources",
+            "path": "../node_modules/aurelia-templating-resources/dist/amd",
+            "main": "aurelia-templating-resources"
+          },
+          {
+            "name": "aurelia-templating-router",
+            "path": "../node_modules/aurelia-templating-router/dist/amd",
+            "main": "aurelia-templating-router"
+          },
+          {
+            "name": "aurelia-testing",
+            "path": "../node_modules/aurelia-testing/dist/amd",
+            "main": "aurelia-testing",
+            "env": "dev"
+          },
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.bundle.min",
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$",
+            "resources": [
+              "css/bootstrap.css"
+            ]
+          },
+          {
+            "name": "@process-engine/bpmn-js-custom-bundle",
+            "path": "../node_modules/@process-engine/bpmn-js-custom-bundle/dist",
+            "main": "bpmn-modeler-custom.js",
+            "resources": [
+              "bpmn-modeler-custom.css",
+              "bpmn-modeler-custom.js"
+            ]
+          },
+          {
+            "name": "@process-engine/bpmn-lint_rules",
+            "path": "../node_modules/@process-engine/bpmn-lint_rules",
+            "main": "index.js"
+          },
+          {
+            "name": "dist/web/@fortawesome/fontawesome-free",
+            "path": "../node_modules/@fortawesome/fontawesome-free",
+            "main": "css/all.css",
+            "resources": [
+              "css/all.css"
+            ]
+          },
+          {
+            "name": "bluebird",
+            "main": "./js/browser/bluebird",
+            "path": "../node_modules/bluebird"
+          },
+          {
+            "name": "debug",
+            "path": "../node_modules/debug",
+            "main": "./src/browser"
+          },
+          {
+            "name": "proxy-polyfill",
+            "main": "proxy.min.js",
+            "path": "../node_modules/proxy-polyfill"
+          },
+          "ms",
+          "eventemitter2",
+          "velocity-animate",
+          "tether",
+          {
+            "name": "aurelia-bootstrap",
+            "path": "../node_modules/aurelia-bootstrap/dist/amd",
+            "main": "index",
+            "resources": [
+              "**/*.html"
+            ]
+          },
+          {
+            "name": "toastr",
+            "path": "../node_modules/toastr",
+            "main": "toastr",
+            "resources": [
+              "build/toastr.min.css"
+            ],
+            "deps": [
+              "jquery"
+            ]
+          },
+          {
+            "name": "spectrum-colorpicker",
+            "path": "../node_modules/spectrum-colorpicker",
+            "main": "spectrum.js",
+            "resources": [
+              "spectrum.css",
+              "spectrum.js"
+            ]
+          },
+          {
+            "name": "aurelia-validation",
+            "main": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "resources": []
+          },
+          {
+            "name": "repeat-string",
+            "main": "index.js",
+            "path": "../node_modules/repeat-string"
+          },
+          {
+            "name": "highlight.js",
+            "main": "lib/index.js",
+            "path": "../node_modules/highlight.js",
+            "resources": [
+              "styles/github-gist.css"
+            ]
+          },
+          {
+            "name": "highlightjs-line-numbers.js",
+            "main": "dist/highlightjs-line-numbers.min.js",
+            "path": "../node_modules/highlightjs-line-numbers.js",
+            "resources": [
+              "styles/*.css"
+            ]
+          },
+          {
+            "name": "print-js",
+            "main": "dist/print.js",
+            "path": "../node_modules/print-js"
+          },
+          {
+            "name": "@essential-projects/errors_ts",
+            "main": "index.js",
+            "path": "../node_modules/@essential-projects/errors_ts/dist/amd"
+          },
+          {
+            "name": "fs",
+            "path": "../aurelia_project/native/fs"
+          },
+          {
+            "name": "path",
+            "path": "../aurelia_project/native/path"
+          },
+          {
+            "name": "util",
+            "path": "../aurelia_project/native/util"
+          },
+          {
+            "name": "os",
+            "path": "../aurelia_project/native/os"
+          },
+          {
+            "name": "@process-engine/solutionexplorer.repository.filesystem",
+            "main": "index.js",
+            "path": "../node_modules/@process-engine/solutionexplorer.repository.filesystem/dist/amd"
+          },
+          {
+            "name": "@process-engine/solutionexplorer.repository.management_api",
+            "main": "index.js",
+            "path": "../node_modules/@process-engine/solutionexplorer.repository.management_api/dist/amd"
+          },
+          {
+            "name": "@process-engine/solutionexplorer.service",
+            "path": "../node_modules/@process-engine/solutionexplorer.service/dist/amd",
+            "main": "index.js"
+          },
+          {
+            "name": "@process-engine/consumer_api_contracts",
+            "path": "../node_modules/@process-engine/consumer_api_contracts/dist/amd",
+            "main": "index.js"
+          },
+          {
+            "name": "@process-engine/management_api_contracts",
+            "path": "../node_modules/@process-engine/management_api_contracts/dist/amd",
+            "main": "index.js",
+            "deps":[
+              "@process-engine/consumer_api_contracts"
+            ]
+          },
+          {
+            "name": "@process-engine/management_api_client",
+            "path": "../node_modules/@process-engine/management_api_client/dist/amd",
+            "main": "index.js",
+            "deps":[
+              "@process-engine/consumer_api_contracts"
+            ]
+          },
+          {
+            "name": "bpmn-js-differ",
+            "main": "dist/index.cjs.js",
+            "path": "../node_modules/bpmn-js-differ"
+          },
+          {
+            "name": "marked",
+            "main": "marked.min.js",
+            "path": "../node_modules/marked"
+          },
+          {
+            "name": "socket.io-client",
+            "path": "../node_modules/socket.io-client/dist",
+            "main": "socket.io"
+          },
+          {
+            "name": "node-uuid",
+            "path": "../node_modules/node-uuid",
+            "main": "uuid.js"
+          },
+          {
+            "name": "@essential-projects/event_aggregator_contracts",
+            "path": "../node_modules/@essential-projects/event_aggregator_contracts/dist/commonjs",
+            "main": "index.js"
+          },
+          {
+            "name": "dom-event-dispatch",
+            "path": "../node_modules/dom-event-dispatch/dist",
+            "main": "dom-event-dispatch"
+          }
+        ]
+      }
+    ],
+    "copyFiles": {
+      "src/resources/images/default-avatar.png": "src/resources/images",
+      "node_modules/@process-engine/process_engine_runtime/config/sqlite/**/*": "config/sqlite",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": "dist/web/@fortawesome/fontawesome-free/webfonts",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff": "dist/web/@fortawesome/fontawesome-free/webfonts",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": "dist/web/@fortawesome/fontawesome-free/webfonts",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": "dist/web/@fortawesome/fontawesome-free/webfonts",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff": "dist/web/@fortawesome/fontawesome-free/webfonts",
+      "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": "dist/web/@fortawesome/fontawesome-free/webfonts"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.live-execution-tracker {
+  position: relative;
+  display: flex;
+  height: 100%;
+}
+
+.let__main-view {
+  display: flex;
+  height: 100%;
+  padding-right: 36px;
+  overflow: hidden;
+  flex-basis: 100%;
+}
+
+.let__diagram-viewer {
+  position: relative;
+  height: 100%;
+  flex-basis: 100%;
+  // The width is necessary because otherwise the flex-basis does not work correctly
+  width: 0;
+}
+
+.let__diagram-viewer-canvas {
+  height: 100%;
+}
+
+.let__diagram-viewer-preview-container {
+  width: 100%;
+  height: 100%;
+}
+
+.let__diagram-viewer-preview-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.let__overlay-button-icon {
+  position: absolute;
+  top: 9px;
+  left: 14px;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.let__overlay-button:hover .let__overlay-button-icon {
+  opacity: 1;
+}
+
+.let__button-row {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  bottom: 100px;
+  width: 100%;
+}
+
+.let__parent-process-button {
+  width: 200px;
+}
+
+.let__stop-process-button {
+  width: 200px;
+}
+
+.let__diagram-preview-header {
+  margin: 0 auto;
+}
+
+.let__close-modal-button {
+  position: absolute;
+  right: 20px;
+}
+
+.let__close-dynamic-ui-modal-button {
+  top: 5px;
+}
+
+.let__token-viewer {
+  max-width: calc(100% - 320px);
+  flex-shrink: 0;
+}
+
+.let__token-viewer-resize-div {
+  z-index: 1;
+  width: 6px;
+  margin-right: -4px;
+  cursor: col-resize;
+  flex-shrink: 0;
+}
+
+.let__right-toolbar {
+  position: fixed;
+  top: 42px;
+  right: 0px;
+  bottom: 0;
+  width: 36px;
+  background-color: #f7f7f7;
+  border-left: 2px solid #dcdbdb;
+}
+
+.let__tool {
+  padding: 5px;
+  margin: 0 5px;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.let__tool:hover {
+  opacity: 1;
+}
+
+.let__tool--active {
+  opacity: 1;
+}

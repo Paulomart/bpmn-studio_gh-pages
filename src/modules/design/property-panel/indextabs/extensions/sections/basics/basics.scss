@@ -1,0 +1,46 @@
+.property-table {
+  border-collapse: separate;
+}
+
+.property-table-column-left {
+  width: 30%;
+  padding-right: 3px;
+}
+
+.property-table-column-right {
+  width: 70%;
+  padding-left: 3px;
+}
+
+.key-value-input {
+  width: 100%;
+  margin: 2px 0;
+}
+
+.key-value-input:disabled {
+  opacity: 0.5;
+}
+
+.key-value-delete-button {
+  padding-top: 2px;
+  background: transparent;
+  border: none;
+  color: darkgray;
+}
+
+.key-value-delete-button:hover {
+  color: black;
+}
+
+.key-value-delete-button:focus {
+  color: black;
+}
+
+.key-value-delete-button:disabled {
+  opacity: 0.2;
+}
+
+.key-value-delete-button:hover:disabled {
+  opacity: 0.2;
+  color: darkgrey;
+}

@@ -1,0 +1,39 @@
+.navigation-button {
+  width: 100%;
+  margin-top: 10px;
+  background: #f7f7f7;;
+}
+
+.navigation-button:disabled {
+  opacity: 0.5;
+  background: #d6d6d6;
+}
+
+.called-process-selection {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.called-process-selection__input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  line-height: 20px;
+}
+
+.payload-enlarge-link {
+  display: block;
+  color: #007bff !important;
+}
+
+.payload-enlarge-text:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,17 @@
+<template>
+    <require from="./process.css"></require>
+    <require from="../../../../styles/sections.css"></require>
+    <div class="section-panel" id="js-general-process-section">
+      <div class="panel__heading">Process</div>
+      <div class="panel__content">
+        <table class="props-table">
+          <tr>
+            <th>Executable</th>
+            <td>
+              <input type="checkbox" class="props-input" checked.bind="businessObjInPanel.isExecutable" change.delegate="toggleExecutable()" disabled.bind="!isEditable">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </template>

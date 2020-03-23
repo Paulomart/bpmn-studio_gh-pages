@@ -1,0 +1,32 @@
+.diagram-viewer {
+  position: relative;
+  height: calc(50% - 14px);
+  margin-bottom: 21px;
+  overflow: hidden;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+}
+
+.diagram-viewer__body {
+  position: relative;
+  height: 100%;
+}
+
+.diagram-viewer__empty-message {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.diagram-viewer__loading-spinner {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  white-space: nowrap;
+}

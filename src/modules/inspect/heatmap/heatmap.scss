@@ -1,0 +1,70 @@
+.heatmap {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-right: 36px;
+}
+
+.heatmap__viewer-container {
+  height: 100%;
+  width: 100%;
+}
+
+.heatmap__legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  max-width: 155px;
+  background: whitesmoke;
+  user-select: none;
+}
+
+.heatmap__legend-entry {
+  display: block;
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+.heatmap__legend-entry-first {
+  margin-top: 10px;
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.heatmap__legend-entry-last {
+  margin-bottom: 10px;
+}
+
+.heatmap__overlay {
+  width: 35px;
+  height: 35px;
+  min-height: 16px;
+  padding: 7px;
+  background-color: black;
+  border-radius: 50%;
+  font-family: Arial;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+}
+
+.red {
+  color: #E53935;
+}
+
+.green {
+  color: #43A047;
+}
+
+.black {
+  color: black;
+}
+
+.heatmap__empty-message {
+  width: 100%;
+  text-align: center;
+  transform: translateY(50%);
+  user-select: none;
+}

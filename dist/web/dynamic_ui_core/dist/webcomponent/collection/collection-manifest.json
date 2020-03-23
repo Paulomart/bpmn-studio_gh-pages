@@ -1,0 +1,180 @@
+{
+  "components": [
+    {
+      "tag": "boolean-form-field",
+      "dependencies": [],
+      "componentClass": "BooleanFormField",
+      "componentPath": "usertask-component/form-fields/boolean-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/boolean-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "date-form-field",
+      "dependencies": [],
+      "componentClass": "DateFormField",
+      "componentPath": "usertask-component/form-fields/date-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/date-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "dynamic-usertask-component",
+      "dependencies": [],
+      "componentClass": "DynamicUserTaskComponent",
+      "componentPath": "usertask-component/dynamic-usertask-component.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/dynamic-usertask-component.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "usertask",
+          "attr": "usertask",
+          "watch": [
+            "watchUserTaskHandler"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event": "canceled"
+        },
+        {
+          "event": "submitted"
+        }
+      ]
+    },
+    {
+      "tag": "enum-form-field",
+      "dependencies": [],
+      "componentClass": "EnumFormField",
+      "componentPath": "usertask-component/form-fields/enum-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/enum-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "long-form-field",
+      "dependencies": [],
+      "componentClass": "LongFormField",
+      "componentPath": "usertask-component/form-fields/long-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/long-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "manualtask-component",
+      "dependencies": [],
+      "componentClass": "ManualTaskComponent",
+      "componentPath": "manualtask-component/manualtask-component.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "manualtask-component/manualtask-component.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "manualtask",
+          "attr": "manualtask"
+        }
+      ],
+      "events": [
+        {
+          "event": "canceled"
+        },
+        {
+          "event": "continued"
+        }
+      ]
+    },
+    {
+      "tag": "number-form-field",
+      "dependencies": [],
+      "componentClass": "NumberFormField",
+      "componentPath": "usertask-component/form-fields/number-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/number-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "tag": "string-form-field",
+      "dependencies": [],
+      "componentClass": "StringFormField",
+      "componentPath": "usertask-component/form-fields/string-form-field.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "usertask-component/form-fields/string-form-field.css"
+          ]
+        }
+      },
+      "states": [
+        {
+          "name": "value"
+        }
+      ]
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.18.1",
+    "typescriptVersion": "3.3.3"
+  },
+  "bundles": []
+}

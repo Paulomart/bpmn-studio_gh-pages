@@ -1,0 +1,29 @@
+productName: "BPMN Studio (Beta)"
+directories:
+  output: dist/electron
+  buildResources: build
+extraFiles:
+  - filter:
+      - build/**
+      - config/**
+extraResources:
+  - filter:
+      - node_modules/@process-engine/process_engine_runtime/config/**/*
+      - node_modules/@process-engine/process_engine_runtime/sequelize/migrations/**/*
+nsis:
+  perMachine: false
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  runAfterFinish: false
+  artifactName: 'bpmn-studio-setup-${version}.${ext}'
+portable:
+  artifactName: 'bpmn-studio-portable-${version}.${ext}'
+win:
+  target:
+    - nsis
+    - portable
+mac:
+  target:
+    - dmg
+    - zip
+  artifactName: 'bpmn-studio-setup-${version}.${ext}'

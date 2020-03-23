@@ -1,0 +1,28 @@
+<template>
+  <require from="./process.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="process-properties-panel" id="js-extensions-process-section">
+    <div class="panel__heading">
+      Process Properties
+      <button class="button add-context-button" click.delegate="addProperty()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table>
+        <tr repeat.for="property of properties" index.bind="$index">
+          <td class="key-value-column">
+            <input type="text" class="key-value-input" focus.one-time="shouldFocus" data-fieldIndex="${$index}" blur.trigger="inputFieldBlurred($index, $event)" value.bind="newNames[$index]" placeholder="Name" change.delegate="changeName($index)">
+          </td>
+          <td class="key-value-column">
+            <input type="text" class="key-value-input" data-fieldIndex="${$index}" blur.trigger="inputFieldBlurred($index, $event)" value.bind="newValues[$index]" placeholder="Value" change.delegate="changeValue($index)">
+          </td>
+          <td>
+            <button class="button key-value-delete-button" click.delegate="removeProperty($index)">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+</template>

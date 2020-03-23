@@ -1,0 +1,90 @@
+.design {
+  height: 100%;
+  display: flex;
+  flex: 1;
+}
+
+bpmn-xml-view {
+  height: 100%;
+  margin-right: 36px;
+}
+
+diagram-detail {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  margin-right: 36px;
+}
+
+.design__diff-destination-button {
+  margin: auto;
+  background: inherit;
+  border: none;
+  opacity: 0.5;
+}
+
+.design__diff-destination-button--disabled {
+  opacity: 0.2 !important;
+}
+
+.design__diff-destination-button:hover {
+  opacity: 1;
+}
+
+bpmn-diff-view {
+  flex: 1;
+  height: 100%;
+  margin-right: 36px;
+}
+
+.design-layout__tools-right {
+  position: absolute;
+  width: 36px;
+  top: 42px;
+  right: 0px;
+  bottom: 20px;
+  background-color: #f7f7f7;
+  border-left: 2px solid #dcdbdb;
+}
+
+.design-layout__tool {
+  display: block;
+  padding: 5px;
+  text-align: center;
+}
+
+.design-layout__tool:hover {
+  opacity: 1;
+}
+
+.design-layout__tool--active {
+  opacity: 1;
+}
+
+.design-layout__tool--disabled {
+  display: block;
+  padding: 2px;
+  text-align: center;
+  opacity: 0.2 !important;
+}
+
+.design-layout__tool--disabled:hover {
+  opacity: 0.2;
+}
+
+.design-modal__textarea {
+  height: 120px;
+  max-height: 200px;
+  min-height: 30px;
+}
+
+.diagram-list_dropdown {
+  max-width: 100%;
+}
+
+.design__diff-view-dropdown {
+  position: absolute;
+  will-change: transform;
+  top: 0px;
+  transform: translate3d(-147px, 31px, 0px);
+}

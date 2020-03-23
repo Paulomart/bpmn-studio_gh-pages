@@ -1,0 +1,114 @@
+<template>
+  <require from="./design.css"></require>
+  <require from="./diagram-detail/diagram-detail"></require>
+  <require from="./bpmn-xml-view/bpmn-xml-view"></require>
+  <require from="./bpmn-diff-view/bpmn-diff-view"></require>
+
+  <div class="design">
+
+    <diagram-detail show.bind="showDetail" view-model.ref="diagramDetail" active-diagram.bind="activeDiagram" xml.two-way="xml" active-solution-entry.bind="activeSolutionEntry" data-test-diagram-detail></diagram-detail>
+    <bpmn-xml-view show.bind="showXML" xml.bind="xml" data-test-bpmn-xml-view></bpmn-xml-view>
+    <bpmn-diff-view if.bind="showDiff" saved-xml.to-view="activeDiagram.xml" unconverted-current-xml.to-view="xmlForDiff" process-model-id.to-view="activeDiagram.name" data-test-bpmn-diff-view></bpmn-diff-view>
+
+    <div class="design-layout__tools-right">
+      <div class="tool-list tool-list--vertical">
+        <div show.bind="showPropertyPanelButton" id="toggleButtonPropertyPanel" class="design-layout__tool">
+          <button class="button menu-bar__menu-left--tool" class.bind="propertyPanelShown ? 'design-layout__tool--active' : ''" click.delegate="togglePanel()" title="Toggle visibility of the Property Panel" data-test-toggle-propertypanel>
+            <i class="fas fa-sliders-h"></i>
+          </button>
+        </div>
+        <button type="button" if.bind="showDiffDestinationButton" class="design-layout__tool design__diff-destination-button dropdown-toggle" class.bind="remoteSolutions.length < 1 ? 'design__diff-destination-button--disabled' : ''" title.bind="remoteSolutions.length > 0 ? 'Set diff destination' : 'There is no other diff destination'" disabled.bind="remoteSolutions.length < 1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-database"></i>
+          <i class="fas fa-angle-down start-options__icon"></i>
+        </button>
+        <div class="dropdown-menu design__diff-view-dropdown">
+          <li class="dropdown-item" click.delegate="setDiffDestination('lastSaved')">Last saved version</li>
+          <li repeat.for="solution of remoteSolutions" class="dropdown-item" click.delegate="setDiffDestination(solution.uri)">${solution.uri}</li>
+        </div>
+        <button type="button" if.bind="!showPropertyPanelButton && showXML === false" class="design-layout__tool design__diff-destination-button dropdown-toggle" title="Diff against other diagrams" click.delegate="openSelectDiagramModal()" id="js-diff-against-other-diagramButton">
+          <i class="fas fa-exchange-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <modal show.bind="showSaveForStartModal"
+          header-text="Document Contains Changes"
+          body-text="Your process has unsaved changes. Save changes to diagram before starting the process?">
+      <template replace-part="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelButtonProcessStart" click.delegate="diagramDetail.cancelDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveButtonProcessStart" click.delegate="diagramDetail.saveChangesBeforeStart()" >Save and start process</button>
+      </template>
+    </modal>
+
+    <modal show.bind="showStartWithOptionsModal"
+          header-text="Start Options"
+          body-text="Your process has unsaved changes. Save changes to diagram before starting the process?"
+          origin.bind="design">
+      <template replace-part="modal-body">
+        <div class="form-group">
+          <label for="correlationId"><b>Custom Correlation ID</b></label>
+          <input class="form-control input-field" class.bind="diagramDetail.hasValidationError ? 'wrong-input' : ''" id="correlationId" aria-describedby="correlationIdHelp" placeholder="Correlation ID" type="text" value.bind="diagramDetail.customCorrelationId">
+          <ul if.bind="diagramDetail.hasValidationError" class="correlation-id-error__container">
+            <li class="error-list__container">Your diagram contains at least one invalid-character
+              Supported characters: [a-z, 0-9, -, _, ä, ü, ö, ß, .]
+            </li>
+          </ul>
+          <small id="correlationIdHelp" class="form-text text-muted">
+              Setting a correlation ID is optional; a correlation ID is useful to identify a process instance; this does not need to be unique.
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="initialToken"><b>Initial StartEvent Token</b></label>
+          <textarea class="form-control input-field design-modal__textarea" id="initialToken" rows="4" placeholder="Put your JSON payload here." value.bind="origin.diagramDetail.initialToken"></textarea>
+          <small class="form-text text-muted">
+              Setting an initial token (JSON payload) is optional; use this if you want to start your process with parameter.
+              If the StartEvent has a TextAnnotation beginning with `StartToken:`, it is used as the default token.
+          </small>
+        </div>
+
+        <small if.bind="diagramHasChanged" class="form-text text-muted">
+            Your diagram contains unsaved changes. Please save them before starting.
+        </small>
+      </template>
+
+      <template replace-part="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelButtonProcessStart" click.delegate="diagramDetail.cancelDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="startButton" click.delegate="diagramDetail.setOptionsAndStart()" disabled.bind="diagramDetail.hasValidationError">${ diagramHasChanged ? 'Save and start process' : 'Start process'}</button>
+      </template>
+    </modal>
+
+    <modal show.bind="showStartEventModal"
+          header-text="Select initial StartEvent"
+          body-text="Your process has unsaved changes. Save changes to diagram before starting the process?">
+      <template replace-part="modal-body">
+        This process contains more than one start event.<br>
+        Please select a start event that should be used to start the process.
+        <div>
+          <select value.bind="diagramDetail.selectedStartEventId" ref="dropdownMenu" class="process-start-event-modal-dialog__dropdown-menu">
+            <option>Select StartEvent</option>
+            <option repeat.for="startEvent of diagramDetail.processesStartEvents" value.bind="startEvent.id">${startEvent.id}</option>
+          </select>
+        </div>
+      </template>
+      <template replace-part="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelStartEventSelection" click.delegate="diagramDetail.cancelDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="startProcessWithSelectedStartEvent" click.delegate="diagramDetail.continueStarting()" disabled.bind="!diagramDetail.selectedStartEventId">Start Process</button>
+      </template>
+    </modal>
+
+    <modal show.bind="showSelectDiagramModal"
+          header-text="Choose a Diagram"
+          id="js-chooseDiagram-modal">
+      <template replace-part="modal-body">
+        <select value.bind="selectedDiagram" class="diagram-list_dropdown" id="js-diagram-dropdown">
+          <option>Select a diagram to compare it to the currently opened diagram</option>
+          <option repeat.for="diagram of diagramArray" id="${diagram.diagram.name}" model.bind="diagram">${diagram.solutionName === 'Last Saved' ? diagram.solutionName : `${diagram.solutionName} | ${diagram.diagram.name}`}</option>
+        </select>
+      </template>
+      <template replace-part="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="js-cancel-diagram-selection" click.delegate="cancelDialog()">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="js-choose-diagram" click.delegate="setDiffDestination(selectedDiagram.solutionUri, selectedDiagram.diagram.name)">Compare</button>
+      </template>
+    </modal>
+  </div>
+</template>

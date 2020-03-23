@@ -1,0 +1,46 @@
+<template>
+  <require from="../property-panel/property-panel"></require>
+  <require from="@process-engine/bpmn-js-custom-bundle/bpmn-modeler-custom.css"></require>
+  <require from="../diagram-tools-right/diagram-tools-right"></require>
+  <require from="./bpmn-io.css"></require>
+  <div class="bpmn-io-layout">
+    <!--
+      DIAGRAM TOOLS
+    -->
+    <div class="bpmn-io-layout__tools-left" css.bind="solutionIsRemote ? 'pointer-events: none;' : ''">
+      <div if.bind="!solutionIsRemote" class="tool-list tool-list--vertical">
+        <div class="button tool">
+          <i class="fas fa-mouse-pointer"></i>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      MAIN CANVAS
+    -->
+    <div class="bpmn-io-layout__main js-main">
+      <div class="modeler">
+        <div if.bind="solutionIsRemote" class="modeler__diagram">
+          <div ref="canvasModel" class="canvasModel" data-test-canvas-model></div>
+        </div>
+        <div else class="modeler__diagram">
+          <div ref="canvasModel" class="canvasModel" data-test-canvas-model></div>
+
+          <div if.bind="linterIsActive" class="linter-toggle">
+            <button class.bind="diagramIsInvalid ? 'linter-toggle__button linter-toggle__button--invalid-diagram' : 'linter-toggle__button'"
+                    css.bind="showLinter || diagramIsInvalid? 'opacity: 1;' : ''"
+                    title.bind="showLinter ? 'Hide Linter' : 'Show Linter'"
+                    click.delegate="toggleLinter()">
+              <i class.bind="diagramIsInvalid ? 'fas fa-times' : 'fas fa-check'"></i>
+            </button>
+          </div>
+        </div>
+        <div class="modeler__properties" ref="propertyPanel" show.bind="showPropertyPanel" css="width: ${propertyPanelWidth}px; max-width: calc(100% - ${minCanvasWidth}px); min-width: ${minPropertyPanelWidth}px;">
+          <div class="resize-div" ref="resizeButton"></div>
+          <diagram-tools-right modeler.bind="modeler" viewer.bind="viewer" solution-is-remote.bind="solutionIsRemote"></diagram-tools-right>
+          <property-panel view-model.ref="propertyPanelViewModel" id="js-properties-panel" modeler.bind="modeler" viewer.bind="viewer" diagram-uri.bind="diagramUri" xml.bind="xml" is-editable.bind="!solutionIsRemote" data-test-property-panel></property-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

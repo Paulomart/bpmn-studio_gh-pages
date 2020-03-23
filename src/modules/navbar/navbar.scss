@@ -1,0 +1,152 @@
+.bpmn-studio-navbar {
+  display: flex;
+  height: 42px;
+  background-color: #f7f7f7;
+  border-bottom: 2px solid #dcdbdb;
+  user-select: none;
+}
+
+.bpmn-studio-navbar--left-margin {
+  -webkit-app-region: drag;
+}
+
+a,
+button {
+  -webkit-app-region: no-drag;
+}
+
+.bpmn-studio-navbar--left-margin .menu-bar__menu--left::before {
+  padding-left: 80px;
+  content: "";
+}
+
+.menu-bar__menu--left {
+  display: flex;
+  flex: 2;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: center;
+  min-width: 308px;
+}
+
+.menu-bar__menu--center {
+  display: flex;
+  flex: 1 100%;
+  align-items: center;
+  overflow: hidden;
+}
+
+.menu-bar__menu--right {
+  display: flex;
+  flex: 2;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+  padding-right: 80px;
+  min-width: 308px;
+}
+
+.menu__menu-tabbed-link {
+  display: flex;
+  padding: 0 8px;
+  align-items: stretch;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.menu__menu-tabbed-link--active {
+  border-bottom: 2px solid #5e5e5e;
+}
+
+.menu__menu-tabbed-link--active .menu-tabbed-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-tabbed-link {
+  display: block;
+  text-decoration: none;
+  line-height: 40px;
+}
+
+.menu-tabbed-link:hover {
+  text-decoration: inherit;
+  -webkit-user-drag: none;
+  color: inherit;
+}
+
+.action-button {
+  background: inherit;
+  border: none;
+}
+
+.menu-bar__dashboard-dropdown {
+  top: 40px;
+  padding: 0;
+  background-color: #f7f7f7;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: none;
+}
+
+.menu-bar__menu-center--action-button {
+  background-color: inherit;
+  border: none;
+}
+
+.process-details-dropdown-menu {
+  user-select: text;
+}
+
+.menu__element {
+  margin: 0 10px;
+  color: #5c5c5c;
+  white-space: nowrap;
+}
+
+.menu__element--title {
+  display: flex;
+  width: 100%;
+  margin: 0 0 1px 0;
+  justify-content: center;
+}
+
+.menu-bar__menu-center--back-button {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.menu__origin-icon {
+  padding-top: 2px;
+  float: left;
+}
+
+.solution-explorer {
+  color: #5c5c5c;
+}
+
+.process-details-title {
+  float: left;
+  max-width: 100%;
+  margin-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.edited-label {
+  margin-left: 4px;
+  opacity: 0.7;
+}
+
+.start-options__icon {
+  font-size: 12px;
+}
+
+.dropdown__start-button {
+  padding: 0;
+}
+
+.export_button-inspect_correlation {
+  margin-right: 10px;
+}

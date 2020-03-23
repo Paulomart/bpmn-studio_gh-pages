@@ -1,0 +1,1 @@
+import{a as e}from"./chunk-d8a0f336.js";class t{constructor(e){this._regex=new RegExp(e)}isValid(e){return this._regex.test(e)}validateKey(t){const r=t.keyCode;return r<=e.NINE&&r>=e.ZERO||r===e.BACKSPACE||r===e.ENTER||r===e.COMMA||r===e.DOT||(r===e.C||r===e.V)&&(t.ctrlKey||t.metaKey)||r===e.MINUS||t.keyCode===e.TAB}}export{t as a};

@@ -1,0 +1,16 @@
+.key-value-column-left {
+  width: 30%;
+}
+
+.key-value-column-right {
+  width: 70%;
+}
+
+.key-value-input {
+  width: 100%;
+  margin: 2px 0;
+}
+
+.key-value-input:disabled {
+  opacity: 0.5;
+}

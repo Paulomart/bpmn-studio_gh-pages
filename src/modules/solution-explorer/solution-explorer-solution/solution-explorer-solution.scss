@@ -1,0 +1,193 @@
+.solution__diagram-list {
+  padding: 0;
+}
+
+.solution-loading {
+  text-align: center;
+}
+
+.diagram-create {
+  width: 100%;
+  padding: 2.5px 0;
+  padding-left: 22px;
+  list-style: none;
+}
+
+.diagram-create .input-holder {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.input-holder__input {
+  width: 100%;
+}
+
+.input-holder__input--error {
+  border-color: red;
+}
+
+.diagram-create__errors {
+  padding: 2px;
+  padding-left: 22px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 2px solid red;
+  color: red;
+  border-top: none;
+}
+
+.diagram-create__error {
+  list-style-type: disc;
+}
+
+.diagram-rename-container {
+  width: 100%;
+  padding: 2.5px 0px;
+  list-style: none;
+}
+
+.diagram-rename-container .input-holder {
+  flex: 1;
+  margin-right: 0;
+}
+
+.rename-errors-container__error-list {
+  padding: 2px;
+  padding-left: 25px;
+  margin-right: 0px;
+  border: 2px solid red;
+  border-top: none;
+  color: red;
+}
+
+.rename-errors-container__error-list-entry {
+  list-style-type: disc;
+}
+
+.diagram-entry {
+  display: flex;
+  padding: 2.5px 5px 2.5px 22px;
+}
+
+.diagram-entry--highlight {
+  background-color: #e6e6e6;
+}
+
+.diagram-entry__icon {
+  flex: 0;
+  margin-top: 2px;
+  margin-right: 6px;
+}
+
+.diagram-entry__unsaved-icon {
+  flex: 0;
+  position: relative;
+  left: -14px;
+  margin-top: 6px;
+  margin-right: -9px;
+  font-size: 9px;
+  opacity: 0.5;
+}
+
+.diagram-entry__name-container {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diagram-entry__location {
+  font-size: 12px;
+  color: darkgray;
+}
+
+.diagram-entry:hover .diagram-entry__name {
+  text-decoration: underline;
+}
+
+.diagram-entry__actions {
+  display: none;
+}
+
+.diagram-entry:hover .diagram-entry__actions {
+  display: flex;
+}
+
+@media (any-hover: none) {
+  .diagram-entry__actions {
+    display: flex;
+  }
+}
+
+.diagram-entry__actions button {
+  padding: 0 2px;
+  background: transparent;
+  border: none;
+}
+
+.toast-message__headline {
+  width: calc(100% + 30px);
+  margin-left: -30px;
+}
+
+.toast-not-allowed-renaming-or-deleting {
+  width: 350px;
+}
+
+.diagram-contextmenu {
+  position: fixed;
+  background: white;
+  border: 1px solid #dcdbdb;
+  border-radius: 5px;
+}
+
+.diagram-contextmenu__entry {
+  width: 100%;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.diagram-contextmenu__entry:hover {
+  background-color: #dcdbdb;
+}
+
+.saving-diagram-modal__loading-spinner {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.saving-diagram-modal__loading-spinner-icon {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 22px);
+  height: 150px;
+  transform: translate(-50%, -50%);
+}
+
+.saving-diagram-modal__loading-spinner-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5px;
+  bottom: 10px;
+}
+
+.startup-error:hover {
+  text-decoration: underline;
+}
+
+.error-log {
+  min-height: 440px;
+  resize: none;
+}
+
+.authority-issue {
+  margin-left: 20px;
+}
+
+.authorisation-error:hover > .authorisation-error__login-link {
+  cursor: default;
+}

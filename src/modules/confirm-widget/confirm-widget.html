@@ -1,0 +1,9 @@
+<template>
+  <require from="./confirm-widget.css"></require>
+  <template if.bind="userTaskConfig">
+    <template repeat.for="field of formFields">
+      <compose view-model="../dynamic-ui-${getFieldControl(field)}-element/dynamic-ui-${getFieldControl(field)}-element" model.bind="field"></compose>
+    </template>
+  </template>
+  <p class="confirm-widget-confirm-message">${confirmMessage}</p>
+</template>

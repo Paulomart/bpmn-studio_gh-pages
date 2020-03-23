@@ -1,0 +1,45 @@
+<template>
+  <require from="./basics.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel panel--general" id="js-general-basics-section">
+    <div class="panel__heading">${elementType}</div>
+    <div if.bind="showUnsupportedFlag" class="hint-unsupported-bpmn-element">Not supported by internal ProcessEngine</div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>ID</th>
+          <td>
+            <input type="text" class="props-input" value.bind="businessObjInPanelId & validateOnChange" change.delegate="updateId()" disabled.bind="!isEditable" data-test-property-panel-element-id>
+          </td>
+          <td>
+            <template if.bind="validationError">
+              <i class="fas fa-times validation_error"></i>
+            </template>
+          </td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td>
+            <input type="text" class="props-input" value.bind="businessObjInPanel.name" change.delegate="updateName()" disabled.bind="!isEditable" data-test-property-panel-element-name>
+          </td>
+        </tr>
+        <tr>
+          <th>Docs <a class="docs-enlarge-link" click.delegate="showModal = true"><small class="docs-enlarge-text">Enlarge</small></a></th>
+          <td>
+            <textarea type="text" ref="docsInput" class="props-input-textarea" value.bind="elementDocumentation" change.delegate="updateDocumentation()" disabled.bind="!isEditable" aria-multiline="true"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <modal show.bind="showModal"
+         header-text="Editing: Docs">
+    <template replace-part="modal-body" autofocus>
+      <textarea class="form-control docs" value.bind="elementDocumentation" change.delegate="updateDocumentation()" rows="10" aria-multiline="true" autofocus wrap="soft" disabled.bind="!isEditable"></textarea>
+    </template>
+    <template replace-part="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" click.delegate="showModal = false">Okay</button>
+    </template>
+  </modal>
+</template>

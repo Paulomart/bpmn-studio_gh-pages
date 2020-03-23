@@ -1,0 +1,65 @@
+<template>
+  <require from="../../../../../../styles/sections.css"></require>
+  <div class="section-panel">
+    <div class="panel__heading">HTTP REST Service</div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Method</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedHttpMethod" change.delegate="httpMethodChanged()" disabled.bind="!model.isEditable">
+              <option value="null">-Choose Method-</option>
+              <option value="get">GET</option>
+              <option value="post">POST</option>
+              <option value="put">UPDATE</option>
+              <option value="delete">DELETE</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Url</th>
+          <td>
+            <input
+              type="text"
+              class="props-input name-input"
+              value.bind="selectedHttpUrl"
+              change.delegate="selectedHttpParamsChanged()"
+              disabled.bind="!model.isEditable">
+          </td>
+        </tr>
+        <tr class.bind="!selectedHttpUrl ? 'props-table__row--disabled' : ''">
+          <th>Body</th>
+          <td>
+            <textarea
+              class="props-input-textarea name-input"
+              value.bind="selectedHttpBody"
+              change.delegate="selectedHttpParamsChanged()"
+              disabled.bind="!selectedHttpUrl || !model.isEditable"></textarea>
+          </td>
+        </tr>
+        <tr class.bind="!selectedHttpBody ? 'props-table__row--disabled' : ''">
+          <th>Content Type</th>
+          <td>
+            <input
+              type="text"
+              class="props-input name-input"
+              value.bind="selectedHttpContentType"
+              change.delegate="selectedHttpParamsChanged()"
+              disabled.bind="!selectedHttpBody || !model.isEditable">
+          </td>
+        </tr>
+        <tr class.bind="!selectedHttpBody ? 'props-table__row--disabled' : ''">
+          <th>Authorization</th>
+          <td>
+            <input
+              type="text"
+              class="props-input name-input"
+              value.bind="selectedHttpAuth"
+              change.delegate="selectedHttpParamsChanged()"
+              disabled.bind="!selectedHttpBody || !model.isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>

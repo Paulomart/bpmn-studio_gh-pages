@@ -1,0 +1,77 @@
+<template>
+  <require from="@process-engine/bpmn-js-custom-bundle/bpmn-modeler-custom.css"></require>
+  <require from="./live-execution-tracker.css"></require>
+  <require from="../task-dynamic-ui/task-dynamic-ui"></require>
+  <require from="../inspect/token-viewer/token-viewer"></require>
+
+  <div class="live-execution-tracker" data-test-live-execution-tracker>
+    <div class="let__main-view">
+      <div class="let__diagram-viewer">
+        <div ref="canvasModel" class="let__diagram-viewer-canvas"></div>
+        <div class="let__button-row">
+          <button if.bind="hasPreviousProcess" class="btn btn-default let__parent-process-button" click.delegate="navigateBackToPreviousProcess()">Back to parent process</button>
+          <button if.bind="processIsActive" class="btn btn-default let__stop-process-button" click.delegate="stopProcessInstance()" data-test-stop-process-button>Stop Process</button>
+        </div>
+      </div>
+      <div show.bind="showTokenViewer" class="let__token-viewer-resize-div" ref="tokenViewerResizeDiv"></div>
+      <token-viewer show.bind="showTokenViewer"
+                    ref="tokenViewer"
+                    class="let__token-viewer"
+                    css="width: ${tokenViewerWidth}px;"
+                    correlation-id.bind="correlation.id"
+                    active-diagram.bind="activeDiagram"
+                    flow-node.bind="selectedFlowNode"
+                    active-solution-entry.bind="activeSolutionEntry"
+                    process-instance-id.bind="processInstanceId">
+      </token-viewer>
+    </div>
+  </div>
+  <div class="let__right-toolbar">
+    <div class="tool-list tool-list--vertical">
+      <div class="let__tool"
+           class.bind="showTokenViewer ? 'let__tool--active' : ''"
+           title.bind="showTokenViewer ? 'Hide token viewer' : 'Show token viewer'"
+           click.delegate="toggleShowTokenViewer()">
+        <i class="fas fa-book"></i>
+      </div>
+    </div>
+  </div>
+
+  <modal if.bind="showDynamicUiModal"
+         modal-style.bind="modalStyleString"
+         content-style.bind="contentStyleString"
+         css="display: ${showDynamicUiModal ? 'block' : 'none'};"
+         body-style="overflow: auto;"
+         origin.bind="liveExecutionTracker">
+    <template replace-part="modal-header">
+      <btn class="button let__close-modal-button let__close-dynamic-ui-modal-button"><i class="fas fa-times" click.delegate="closeDynamicUiModal()"></i></btn>
+    </template>
+    <template replace-part="modal-body">
+      <task-dynamic-ui correlation-id.bind="correlationId"
+                        view-model.ref="origin.dynamicUi"
+                        process-instance-id.bind="processInstanceId"
+                        process-model-id.bind="processModelId"
+                        task-id.bind="taskId"
+                        is-modal="true"
+                        close-modal.trigger="closeDynamicUiModal()"
+                        active-solution-entry.bind="activeSolutionEntry">
+      </task-dynamic-ui>
+    </template>
+  </modal>
+
+  <modal show.bind="showDiagramPreviewViewer"
+         modal-style="top: 10%; bottom: 10%; left: 10%; right: 10%; margin: 0; position: absolute; max-width: 100%;"
+         css="display: ${showDiagramPreviewViewer ? 'block' : 'none'};"
+         body-style="overflow: auto; width: 100%; height: 100%; padding: 0;"
+         origin.bind="liveExecutionTracker">
+    <template replace-part="modal-header">
+      <span class="let__diagram-preview-header">Preview: ${origin.nameOfDiagramToPreview}</span>
+      <btn class="button let__close-modal-button"><i class="fas fa-times" click.delegate="closeDiagramPreview()"></i></btn>
+    </template>
+    <template replace-part="modal-body">
+      <div class="let__diagram-viewer-preview-container">
+        <div ref="origin.previewCanvasModel" class="let__diagram-viewer-preview-canvas"></div>
+      </div>
+    </template>
+  </modal>
+</template>

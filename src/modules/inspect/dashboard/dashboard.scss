@@ -1,0 +1,26 @@
+.dashboard-container {
+  overflow: auto;
+  height: 100%;
+  padding: 20px 60px;
+}
+
+.dashboard__last-table-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.loading-spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+.task-list-container {
+  flex: 1;
+}
+
+.task-list {
+  display: flex;
+  align-items: stretch;
+}

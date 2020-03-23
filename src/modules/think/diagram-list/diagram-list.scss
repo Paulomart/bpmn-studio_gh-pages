@@ -1,0 +1,39 @@
+/*
+ * Process Definition List Styles
+ */
+.diagram-list {
+  display: flex;
+  height: 100%;
+  align-items: stretch;
+}
+
+.diagram-list-table {
+  table-layout: fixed;
+}
+
+.diagram-list-container {
+  padding: 20px 60px;
+  flex: 1;
+  overflow: auto;
+}
+
+/*
+ * Miscellaneous Styles
+ */
+.loading-spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+.process-name-table-entry {
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.process-name-table-entry:hover {
+  background: #E5E5E5;
+}

@@ -1,0 +1,27 @@
+<template>
+  <require from="bootstrap/css/bootstrap.css"></require>
+  <require from="dist/web/@fortawesome/fontawesome-free/css/all.css"></require>
+  <require from="toastr/build/toastr.min.css"></require>
+  <require from="./app.css"></require>
+  <require from="./electron.css"></require>
+  <require from="./modules/navbar/navbar"></require>
+  <require from="./modules/solution-explorer/solution-explorer-panel/solution-explorer-panel"></require>
+  <require from="./modules/status-bar/status-bar"></require>
+  <require from="./modules/deploy-modals/deploy-modals"></require>
+  <require from="./modules/feedback-modal/feedback-modal"></require>
+
+  <div class="bpmn-studio-layout" class.bind="isRunningInElectron ? 'electron' : ''">
+    <nav-bar></nav-bar>
+    <feedback-modal></feedback-modal>
+
+    <deploy-modals></deploy-modals>
+
+    <div class="bpmn-studio-layout__content">
+      <solution-explorer-panel show.bind="showSolutionExplorer" data-test-solution-explorer-panel></solution-explorer-panel>
+      <router-view></router-view>
+    </div>
+
+    <status-bar></status-bar>
+  </div>
+
+</template>

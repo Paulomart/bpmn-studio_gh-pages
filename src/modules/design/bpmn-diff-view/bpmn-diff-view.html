@@ -1,0 +1,76 @@
+<template>
+  <require from="@process-engine/bpmn-js-custom-bundle/bpmn-modeler-custom.css"></require>
+  <require from="./bpmn-diff-view.css"></require>
+  <div class="diff-view">
+    <div class="left-diff-view" data-test-left-diff-view>
+      <div ref="leftCanvasModel" class="left-diff-view__canvasModel"></div>
+      <span class="diff-canvas-title">
+        <p class="diff-mode">${currentXmlIdentifier}</p>
+      </span>
+    </div>
+    <div class="right-diff-view" data-test-right-diff-view>
+      <div ref="rightCanvasModel" class="right-diff-view__canvasModel"></div>
+      <span class="diff-canvas-title">
+        <p class="diff-mode">${previousXmlIdentifier}</p>
+      </span>
+    </div>
+    <div class="lower-diff-view" data-test-lower-diff-view>
+      <div ref="lowerCanvasModel" class="lower-diff-view__canvasModel"></div>
+      <div class="diff-legend">
+        <span class="diff-legend-entry diff-legend-entry-first">Legend:</span>
+        <span class="diff-legend-entry"><i class="fas fa-stop green"></i> Added</span>
+        <span class="diff-legend-entry"><i class="fas fa-stop red"></i>  Removed</span>
+        <span class="diff-legend-entry"><i class="fas fa-stop orange"></i> Changed</span>
+        <span class="diff-legend-entry diff-legend-entry-last"><i class="fas fa-stop purple"></i> Layout Changed</span>
+      </div>
+      <span if.bind="diffModeIsNewVsOld" class="diff-canvas-title">
+        <p class="diff-mode" id="js-diff-identifier">${currentXmlIdentifier} vs. ${previousXmlIdentifier}</p>
+      </span>
+      <span else class="diff-canvas-title">
+        <p class="diff-mode">${previousXmlIdentifier} vs. ${currentXmlIdentifier}</p>
+      </span>
+      <span class="diff-button-hint" if.bind="currentDiffMode === undefined">
+        <i class="fas fa-arrow-down fa-3x"></i>
+        <span class="diff-button-hint__text">Select diff mode</span>
+        <i class="fas fa-arrow-down fa-3x"></i>
+      </span>
+      <div class="diff-change-list" if.bind="showChangeList" id="changesList">
+        <span class="no-change-message" if.bind="noChangesExisting">${noChangesReason}</span>
+        <div class="change-list-table-wrapper" if.bind="!noChangesExisting">
+          <table class="change-list-table">
+            <tr repeat.for="removedElement of changeListData.removed">
+              <td class="change-list-table__entry">
+                <span class="badge badge-red">Removed</span> - ${removedElement.type}
+                <span if.bind="removedElement.name !== ''">with the name ${removedElement.name}</span>
+              </td>
+            </tr>
+            <tr repeat.for="changedElement of changeListData.changed">
+              <td class="change-list-table__entry">
+                <span class="badge badge-orange">Change</span> - ${changedElement.type}
+                <span if.bind="changedElement.name !== ''">with the name ${changedElement.name}</span>
+              </td>
+            </tr>
+            <tr repeat.for="addedElement of changeListData.added">
+              <td class="change-list-table__entry">
+                <span class="badge badge-green">Added</span> - ${addedElement.type}
+                <span if.bind="addedElement.name !== ''">with the name ${addedElement.name}</span>
+              </td>
+            </tr>
+            <tr repeat.for="layoutChangedElement of changeListData.layoutChanged">
+              <td class="change-list-table__entry">
+                <span class="badge badge-purple">Layout Changed</span> - ${layoutChangedElement.type}
+                <span if.bind="layoutChangedElement.name !== ''">with the name ${layoutChangedElement.name}</span>
+              </td>
+            </tr>
+         </table>
+        </div>
+       <span class="diff-summary" if.bind="!noChangesExisting">
+         ${totalAmountOfChange} Total Differences:
+         <span class="diff-summary__change-type" if.bind="changeListData.removed.length !== 0">${changeListData.removed.length} Removed;</span>
+         <span class="diff-summary__change-type" if.bind="changeListData.changed.length !== 0">${changeListData.changed.length} Changed;</span>
+         <span class="diff-summary__change-type" if.bind="changeListData.added.length !== 0">${changeListData.added.length} Added;</span>
+         <span class="diff-summary__change-type" if.bind="changeListData.layoutChanged.length !== 0">${changeListData.layoutChanged.length} Layout Changed;</span>
+      </div>
+    </div>
+  </div>
+</template>

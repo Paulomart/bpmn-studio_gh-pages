@@ -1,0 +1,117 @@
+<template>
+  <require from="./basics.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel" id="js-forms-basics-section">
+    <div class="panel__heading">User Task
+      <i class="fas fa-info-circle feedback-modal__help-icon" title="Help: How to use a UserTask" click.delegate="showUserTaskHelpModal()"></i>
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Form Key</th>
+          <td>
+            <input type="text" class="props-input" value.bind="businessObjInPanel.formKey" disabled.bind="!isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="section-panel">
+    <div class="panel__heading">
+      Form Fields
+      <button class="button remove-context-button" class.bind="isFormSelected ? '' : 'button--disabled'" disabled.bind="!isFormSelected || !isEditable" click.delegate="removeSelectedForm()">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button class="button add-context-button" click.delegate="addForm()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <select class="form-control forms-list" value.bind="selectedForm" change.delegate="selectForm()" size="5">
+        <option repeat.for="form of forms" model.bind="form">${form.id}</option>
+      </select>
+    </div>
+  </div>
+  <div class="section-panel" show.bind="isFormSelected">
+    <div class="panel__heading">Form Field</div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>ID</th>
+          <td>
+            <input type="text" class="props-input" id="formId" value.bind="selectedForm.id & validateOnChange" placeholder="ID" change.delegate="updateId()" disabled.bind="!isEditable">
+          </td>
+          <td>
+            <div show.bind="isFormSelected">
+              <template if.bind="validationError">
+                <i class="fas fa-times validation_error"></i>
+              </template>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedType" change.delegate="updateType()" disabled.bind="!isEditable">
+              <option model.bind="null">-Choose Type-</option>
+              <option model.bind="FormfieldTypes.string">Text</option>
+              <option model.bind="FormfieldTypes.long">Integer</option>
+              <option model.bind="FormfieldTypes.number">Decimal</option>
+              <option model.bind="FormfieldTypes.boolean">Truth Value</option>
+              <option model.bind="FormfieldTypes.date">Date</option>
+              <option model.bind="FormfieldTypes.enum">Enumeration</option>
+              <option model.bind="FormfieldTypes.customType">Custom</option>
+            </select>
+          </td>
+        </tr>
+        <tr if.bind="selectedType === FormfieldTypes.customType">
+          <th>Custom Type</th>
+          <td>
+            <input type="text" class="props-input" value.bind="customType" placeholder="Custom Type" change.delegate="updateType()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+        <tr>
+          <th>Label</th>
+          <td>
+            <input type="text" class="props-input" value.bind="selectedForm.label"  placeholder="Label" change.delegate="updateLabel()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+        <tr>
+          <th>Default Value</th>
+          <td>
+            <div if.bind="selectedType === FormfieldTypes.boolean" class="checkbox-input">
+              <input type="checkbox" class="checkbox-input__checkbox" checked.bind="booleanDefaultValue" change.delegate="updateBooleanDefaultValue()" disabled.bind="!isEditable">
+              <input type="text" class="props-input checkbox-input__input" value.bind="booleanDefaultValueString" change.delegate="updateBooleanDefaultValueString()" disabled.bind="!isEditable">
+             </div>
+            <input else type="text" class="props-input" value.bind="selectedForm.defaultValue"  placeholder="Default Value" change.delegate="updateDefaultValue()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="section-panel" if.bind="isFormSelected && selectedType === FormfieldTypes.enum">
+    <div class="panel__heading">
+      <span>Values</span>
+      <button class="button add-context-button" click.delegate="addEnumValue()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table>
+        <tr repeat.for="value of enumValues" index.bind="$index">
+          <td class="key-value-column-left">
+            <input type="text" class="key-value-input" value.bind="newEnumValueIds[$index]" placeholder="ID" change.delegate="changeEnumValueId($index)" disabled.bind="!isEditable">
+          </td>
+          <td class="key-value-column-right">
+            <input type="text" class="key-value-input" value.bind="newEnumValueNames[$index]" placeholder="Name" change.delegate="changeEnumValueName($index)" disabled.bind="!isEditable">
+          </td>
+          <td>
+            <button class="button key-value-delete-button" click.delegate="removeEnumValue($index)" disabled.bind="!isEditable">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>

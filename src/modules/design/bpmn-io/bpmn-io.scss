@@ -1,0 +1,277 @@
+.modeler {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.modeler__diagram {
+  flex: 1;
+}
+
+.modeler__properties {
+  position: relative;
+  display: flex;
+  width: 250px;
+  height: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+  background: rgb(220, 219, 219);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.canvasModel {
+  height: 100%;
+}
+
+.modeler .label {
+  color: black;
+}
+
+.resize-div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 6px;
+}
+
+.resize-div:hover {
+  cursor: col-resize;
+}
+
+/*
+ * TOOLS
+ *
+*/
+
+.tool__right {
+  display: block;
+  padding: 2px;
+  text-align: center;
+}
+
+.tool--deactivated {
+  display: block;
+  padding: 2px;
+  opacity: 0.2;
+  color: #5e5e5e;
+  text-align: center;
+}
+
+/*
+ * WINDOW
+ *
+*/
+
+.bpmn-io-layout {
+  display: flex;
+  flex: 1;
+  background: white;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.bpmn-io-layout__tools-left {
+  width: 36px;
+  min-width: 36px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 2px solid #dcdbdb;
+  -ms-overflow-style: none;
+}
+
+.bpmn-io-layout__tools-left::-webkit-scrollbar {
+  display: none;
+}
+
+.bpmn-io-layout__tools-right {
+  border-left: 2px solid #dcdbdb;
+}
+
+.bpmn-io-layout__tools-left,
+.bpmn-io-layout__tools-right {
+  width: 36px;
+  background-color: #f7f7f7;
+}
+
+.panel {
+  background-color: #f7f7f7;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+.panel:last-child {
+  margin-bottom: 2px;
+  border-bottom: none;
+}
+
+.bpmn-io-layout__main {
+  display: flex;
+  flex: 1 100%;
+}
+
+/*
+ * MENUES
+ *
+*/
+
+.menu-bar__menu-left--tool {
+  background-color: inherit;
+  border: none;
+}
+
+.djs-palette-override {
+  position: fixed !important;
+  top: 70px !important;
+  width: 36px !important;
+  background: transparent !important;
+  border: none !important;
+
+  .entry,
+  .djs-palette-toggle {
+    width: 32px;
+    height: 32px;
+    margin-left: 1px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .entry {
+    /*
+     * This is used instead of the global button class because the
+     * button class does not use '!important' which is needed in this case
+     * to override the existing properties, given by bpmn.io.
+     */
+    color: #333 !important;
+    opacity: 0.5 !important;
+  }
+
+  .highlighted-entry,
+  .entry:hover {
+    color: #333 !important;
+    opacity: 1 !important;
+  }
+
+  .djs-palette-toggle {
+    display: none !important;
+  }
+
+  .djs-palette-entries .separator {
+    margin: 5px 0;
+    padding: 0;
+  }
+}
+
+/*
+ * Color Picker
+*/
+
+.red {
+  color: #e53935;
+}
+
+.blue {
+  color: #1e88e5;
+}
+
+.orange {
+  color: #fb8c00;
+}
+
+.green {
+  color: #43a047;
+}
+
+.purple {
+  color: #8e24aa;
+}
+
+.none {
+  color: transparent;
+}
+
+/*
+ * !important is needed to override the default
+ * styling of the used color-picker component.
+ */
+.colorpicker-container {
+  background: white !important;
+  border: solid 1px #ccc !important;
+}
+
+.bpmn-js-bpmnlint-button {
+  // Overwriting existing style of the plugin
+  top: unset;
+  bottom: 20px;
+  left: 55px;
+  height: 30px;
+  pointer-events: none;
+}
+
+.linter-toggle {
+  position: relative;
+  display: inline-block;
+  bottom: 50px;
+  left: 15px;
+}
+
+.linter-toggle__button {
+  width: 31px;
+  height: 31px;
+  padding: 0;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+
+  background-color: rgba(255, 255, 255, 0.9);
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+}
+
+.linter-toggle__button--invalid-diagram {
+  background-color: rgba(204, 51, 0, 0.95);
+  color: white;
+
+  &:hover {
+    background-color: rgb(230, 77, 26);
+    color: white;
+  }
+}
+
+.bpmn-js-bpmnlint-process-issues {
+  //Overwriting the existing style of the plugin
+  top: unset;
+  right: unset;
+
+  bottom: 20px;
+  left: 240px;
+}
+
+/*
+ * This fixes the style of the bpmnlint icons.
+ * Child combinators are used because these icons do not have a class.
+ */
+.bpmn-js-bpmnlint-issues > .icons > .icon {
+  z-index: -1;
+}
+
+.bpmn-js-bpmnlint-issues > .icons > .icon > svg {
+  margin-top: -3px;
+}
+
+.bpmn-js-bpmnlint-button > svg {
+  margin-top: -4px;
+}
+.bpmn-js-bpmnlint-issues > .group > .header {
+  padding: 2px;
+}
+
+.bpmn-js-bpmnlint-issues > .group > .header > svg {
+  margin-top: -3px;
+  margin-left: 2px;
+  margin-bottom: 0px;
+}

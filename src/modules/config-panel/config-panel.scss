@@ -1,0 +1,32 @@
+.config-panel {
+  margin: 20px 20px 20px 20px;
+}
+
+.config-panel__title {
+  margin-bottom: 20px;
+}
+
+.config-panel__subtitle {
+  padding-top: 5px;
+}
+
+.config-panel__card {
+  margin-bottom: 20px;
+}
+
+.config-panel__card__alert {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.uri-input--invalid {
+  border: 2px red solid;
+}
+
+.uri-input--invalid:focus {
+  border: 2px red solid;
+}
+
+.config-panel__invalid-uri-message {
+  white-space: pre-line;
+}

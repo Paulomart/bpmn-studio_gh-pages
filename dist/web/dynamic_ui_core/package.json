@@ -1,0 +1,80 @@
+{
+  "_args": [
+    [
+      "@process-engine/dynamic_ui_core@1.7.0",
+      "/Users/paulheidenreich/tmp/bpmn-studio_gh-pages/bpmn-studio"
+    ]
+  ],
+  "_from": "@process-engine/dynamic_ui_core@1.7.0",
+  "_id": "@process-engine/dynamic_ui_core@1.7.0",
+  "_inBundle": false,
+  "_integrity": "sha512-M3iFBXMxQX9z2q8ncGHtfYpIIt56886eO08xE81oozdJoMH7Yw3EZgxeAVTEUhxvtkppSFGbRYGkZscvIA6jRw==",
+  "_location": "/@process-engine/dynamic_ui_core",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@process-engine/dynamic_ui_core@1.7.0",
+    "name": "@process-engine/dynamic_ui_core",
+    "escapedName": "@process-engine%2fdynamic_ui_core",
+    "scope": "@process-engine",
+    "rawSpec": "1.7.0",
+    "saveSpec": null,
+    "fetchSpec": "1.7.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@process-engine/dynamic_ui_core/-/dynamic_ui_core-1.7.0.tgz",
+  "_spec": "1.7.0",
+  "_where": "/Users/paulheidenreich/tmp/bpmn-studio_gh-pages/bpmn-studio",
+  "author": {
+    "name": "Robin Lenz"
+  },
+  "bugs": {
+    "url": "https://github.com/process-engine/dynamic_ui_core/issues"
+  },
+  "dependencies": {
+    "@process-engine/consumer_api_client_bundle": "0.2.0",
+    "@process-engine/consumer_api_contracts": "6.0.0",
+    "@process-engine/dynamic_ui_contracts": "1.0.0",
+    "@stencil/core": "^0.18.0",
+    "addict-ioc": "2.5.6",
+    "express": "4.17.1",
+    "handlebars": "4.1.2"
+  },
+  "description": "Businesslogic of dynamic ui",
+  "devDependencies": {
+    "@essential-projects/eslint-config": "^1.0.0",
+    "@process-engine/ci_tools": "^2.2.1",
+    "@types/node": "^10.12.2",
+    "@types/socket.io": "^2.1.2",
+    "eslint": "^5.16.0",
+    "tsconfig": "^7.0.0",
+    "typescript": "^3.4.5"
+  },
+  "files": [
+    "dist/**",
+    "ioc_module.js"
+  ],
+  "homepage": "https://github.com/process-engine/dynamic_ui_core#readme",
+  "license": "MIT",
+  "main": "dist/commonjs/index.js",
+  "name": "@process-engine/dynamic_ui_core",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/process-engine/dynamic_ui_core.git"
+  },
+  "scripts": {
+    "build": "npm run build-tsc && stencil build",
+    "build-amd": "tsc --module amd --outDir ./dist/amd",
+    "build-commonjs": "tsc",
+    "build-tsc": "npm run clean && npm run build-commonjs && npm run build-amd",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts src/*.ts",
+    "lint-fix": "eslint --fix src/**/*.ts src/*.ts",
+    "prepare": "npm run build",
+    "test": ":"
+  },
+  "version": "1.7.0"
+}

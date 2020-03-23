@@ -1,0 +1,34 @@
+<template>
+  <require from="./signal-event.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="section-panel" id="js-general-signalEvent-section">
+    <div class="panel__heading">
+      Signal Event
+      <button class="button remove-context-button" class.bind="selectedId ? '' : 'button--disabled'" disabled.bind="!selectedId || !isEditable" click.delegate="removeSelectedSignal()">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button class="button add-context-button" click.delegate="addSignal()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Signal</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedId" change.delegate="updateSignal()" disabled.bind="!isEditable">
+              <option model.bind="null">-Choose Signal-</option>
+              <option repeat.for="signal of signals"
+                      model.bind="signal.id" value="${signal.id}">${signal.name} (id: ${signal.id})</option>
+            </select>
+          </td>
+        </tr>
+        <tr show.bind="selectedId">
+          <th>Name</th>
+          <td>
+            <input type="text" class="props-input" value.bind="selectedSignal.name" change.delegate="updateName()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+</template>

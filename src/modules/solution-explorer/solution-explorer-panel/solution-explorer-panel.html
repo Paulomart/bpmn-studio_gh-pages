@@ -1,0 +1,102 @@
+<template>
+  <require from="./solution-explorer-panel.css"></require>
+  <require from="../solution-explorer-list/solution-explorer-list"></require>
+
+  <div class="solution-explorer">
+    <div class="solution-explorer-panel">
+
+      <div class="solution-explorer-panel__header">
+        <span class="solution-explorer-panel__header-name">Solution Explorer</span>
+
+        <div class="solution-explorer-panel__actions">
+          <button
+            class="button"
+            if.bind="canReadFromFileSystem"
+            click.delegate="openDiagram()"
+            title="Open a diagram">
+
+            <i class="fa fa-file"></i>
+          </button>
+
+          <button
+            class="button"
+            if.bind="canReadFromFileSystem"
+            click.delegate="openSolution()"
+            title="Open a solution">
+
+            <i class="fa fa-folder-open"></i>
+          </button>
+
+          <button
+            class="button"
+            click.delegate="openRemoteSolutionModal()"
+            title="Open a remote solution">
+
+            <i class="fa fa-plug"></i>
+          </button>
+        </div>
+      </div>
+
+      <input class="solution-explorer-panel__input d-none" ref="solutionInput" type="file" change.delegate="onSolutionInputChange($event)" webkitdirectory>
+      <input class="solution-explorer-panel__input d-none" ref="openDiagramInput" type="file" change.delegate="onOpenDiagramInputChange($event)" accept=".xml, application/xml, .bpmn, application/bpmn20-xml">
+
+      <solution-explorer-list view-model.ref="solutionExplorerList"></solution-explorer-list>
+
+    </div>
+  </div>
+
+  <!-- Open Remote Solution Modal -->
+  <modal if.bind="showOpenRemoteSolutionModal"
+         header-text="Open Remote Solution"
+         body-style="min-height: 230px"
+         origin.bind="solutionExplorerPanel">
+    <template replace-part="modal-body">
+      <form if.bind="!isConnecting" role="form" submit.delegate="openRemoteSolution()">
+        Location:
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-default solution-explorer-panel__protocol-selector dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${selectedProtocol}  <i class="fas fa-angle-down"></i></button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" click.delegate="selectProtocol(supportedProtocols.HTTP)">http://</a>
+              <a class="dropdown-item" click.delegate="selectProtocol(supportedProtocols.HTTPS)">https://</a>
+            </div>
+          </div>
+          <input type="text" class="form-control" class.bind="uriIsValid || uriIsEmpty ? '' : 'uri-input--invalid'" value.bind="origin.uriOfRemoteSolutionWithoutProtocol" placeholder="Please provide a URI for the remote ProcessEngine" autofocus>
+          <div class="solution-explorer-panel__card__alert alert alert-danger" if.bind="!uriIsValid && !uriIsEmpty" role="alert">
+            <div class="solution-explorer-panel__invalid-uri-message"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> The entered URI is invalid.
+              To make it valid make sure it only contains the following characters: a-Z 0-9 - . _ ~ : / ? # [ ] @ ! $ & ' ( ) * + , ; = .
+            </div>
+          </div>
+        </div>
+      </form>
+      <div if.bind="!isConnecting" class="remote-solution-list" if.bind="unconnectedSuggestedRemoteSolutionsExist">
+        <div class="remote-solution-list__remote-solution"
+            repeat.for="remoteSolution of unconnectedSuggestedRemoteSolutions"
+            class.bind="uriOfRemoteSolution === remoteSolution.uri ? 'remote-solution-list__remote-solution-selected' : ''"
+            title.bind="remoteSolution.status ? 'Remote solution is online.' : 'Remote solution is offline.'"
+            click.delegate="selectRemoteSolution(remoteSolution.uri)">
+          <div class="remote-solution-list__solution-data">
+            <i class="fas remote-solution-list__status-icon" class.bind="remoteSolution.status ? 'fa-database' : 'fa-bolt'"></i>
+            <span>${remoteSolution.uri}</span>
+          </div>
+          <h5 if.bind="remoteSolution.version !== undefined">
+            <span class="badge badge-secondary remote-solution-badge" class.bind="getBadgeForVersion(remoteSolution.version)">${getVersionNameForVersion(remoteSolution.version)}</span>
+          </h5>
+          <button if.bind="remoteSolution.version === undefined" class="button remote-solution-list__close-button" click.delegate="removeSolutionFromHistory(remoteSolution.uri)">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div if.bind="connectionErrorExists" class="alert alert-warning remote-solution-list__connection-error-message" role="alert">${connectionError}</div>
+      <div if.bind="isConnecting" class="remote-solution-list__loading-spinner">
+        <img class="remote-solution-list__loading-spinner-icon" src="src/resources/images/gears.svg">
+        <h3 class="remote-solution-list__loading-spinner-text">Connecting to ${uriOfRemoteSolution}...</h3>
+      </div>
+    </template>
+    <template replace-part="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelOpenRemoteSolutionButton" click.delegate="closeRemoteSolutionModal()">Cancel</button>
+      <button type="submit" class="btn btn-primary" data-dismiss="modal" id="openRemoteSolutionButton" disabled.bind="!uriIsValid || uriIsEmpty || isConnecting" click.delegate="openRemoteSolution()">Open Solution</button>
+    </template>
+  </modal>
+
+</template>

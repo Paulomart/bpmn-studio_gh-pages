@@ -1,0 +1,41 @@
+.inspect {
+  width: 100%;
+  height: 100%;
+}
+
+.inspect-layout__tools-right {
+  position: fixed;
+  width: 36px;
+  top: 42px;
+  right: 0px;
+  bottom: 0;
+  background-color: #f7f7f7;
+  border-left: 2px solid #dcdbdb;
+}
+
+.inspect-layout__tool {
+  padding: 5px;
+  margin: 0 5px;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.inspect-layout__tool:hover {
+  opacity: 1;
+}
+
+.inspect-layout__tool--active {
+  opacity: 1;
+}
+
+.inspect-layout__tool--disabled {
+  opacity: 0.2 !important;
+}
+
+.inspect-layout__tool--disabled:hover {
+  opacity: 0.2;
+}
+
+.dashboard__heatmap-container {
+  margin-right: 36px;
+}

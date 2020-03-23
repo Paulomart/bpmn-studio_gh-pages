@@ -1,0 +1,19 @@
+{
+  "tags": [
+    {
+      "label": "manualtask-component",
+      "description": "",
+      "attributes": []
+    },
+    {
+      "label": "dynamic-usertask-component",
+      "description": "",
+      "attributes": []
+    },
+    {
+      "label": "boolean-form-field",
+      "description": "",
+      "attributes": []
+    }
+  ]
+}

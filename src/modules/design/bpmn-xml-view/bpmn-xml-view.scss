@@ -1,0 +1,38 @@
+.xml-view__xml {
+  margin: 0;
+  background-color: unset;
+  border: none;
+  font-size: 14px;
+  font-family: monospace;
+  line-height: 14px;
+  word-break: unset;
+  word-wrap: unset;
+}
+
+.xml-view {
+  display: flex;
+  height: 100%;
+}
+
+.hljs-tag {
+  white-space: normal;
+}
+
+td.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  text-align: right;
+  color: #ccc;
+  border-right: 1px solid #CCC;
+  vertical-align: top;
+  padding-right: 5px;
+}
+
+td.hljs-ln-code {
+  padding-left: 10px;
+}

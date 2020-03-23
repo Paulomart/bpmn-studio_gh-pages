@@ -1,0 +1,37 @@
+<template>
+  <require from="./message-task.css"></require>
+  <require from="../../../../styles/sections.css"></require>
+  <div class="panel" id="js-general-messageTask-section">
+    <div class="panel__heading">
+      Message
+      <button class="button remove-context-button" class.bind="selectedId ? '' : 'button--disabled'" disabled.bind="!selectedId || !isEditable" click.delegate="removeSelectedMessage()">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button class="button add-context-button" click.delegate="addMessage()" disabled.bind="!isEditable">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="panel__content">
+      <table class="props-table">
+        <tr>
+          <th>Message</th>
+          <td>
+            <select class="props-input props-select" value.bind="selectedId" change.delegate="updateMessage()" disabled.bind="!isEditable">
+              <option model.bind="null">-Choose Message-</option>
+              <option repeat.for="message of messages"
+                      model.bind="message.id" value="${message.id}">${message.name} (id: ${message.id})</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <table show.bind="selectedId" class="props-table">
+        <tr>
+          <th>Name</th>
+          <td>
+            <input type="text" class="props-input" value.bind="selectedMessage.name" change.delegate="updateName()" disabled.bind="!isEditable">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
